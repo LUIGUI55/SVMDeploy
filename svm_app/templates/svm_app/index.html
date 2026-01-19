@@ -45,6 +45,7 @@
             font-size: 2.5rem;
             margin-bottom: 10px;
             background: linear-gradient(to right, var(--accent), #818cf8);
+            background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -239,7 +240,7 @@
                     value="{{ user_point.ratio|default:'' }}">
                 <input type="number" step="0.1" name="length" placeholder="Longitud (e.g. 50)" required
                     value="{{ user_point.length|default:'' }}">
-                <button type="submit">Analizar / Subir Email</button>
+                <button type="submit">Analizar</button>
 
                 {% if user_point %}
                 <div
