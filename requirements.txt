@@ -1,0 +1,7 @@
+
+django==5.0
+pandas
+scikit-learn
+matplotlib
+gunicorn
+whitenoise

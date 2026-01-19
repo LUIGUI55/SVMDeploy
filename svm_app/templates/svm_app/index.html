@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detección de Phishing con SVM</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8;
+            --success: #4ade80;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--accent), #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 3fr 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 16px;
+            margin-bottom: 20px;
+        }
+
+        .plot-container {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .plot-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .stat-box {
+            background: rgba(56, 189, 248, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .stat-label {
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.875rem;
+            margin-top: 8px;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .info-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            display: flex;
+            justify-content: space-between;
+            color: var(--text-secondary);
+        }
+
+        .info-list li span:last-child {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Detección de Phishing con SVM</h1>
+            <p class="subtitle">Visualización del Algoritmo de Máquina de Soporte Vectorial</p>
+        </header>
+
+        <div class="dashboard-grid">
+            <div class="card">
+                <h2>Visualización del Límite de Decisión</h2>
+                <div class="plot-container">
+                    {% if plot_data %}
+                    <img src="data:image/png;base64,{{ plot_data }}" alt="Gráfico SVM" class="plot-image">
+                    {% else %}
+                    <p>Cargando Patrón...</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Estadísticas del Modelo</h2>
+                <div class="stat-box">
+                    <div class="stat-value">{{ accuracy }}</div>
+                    <div class="stat-label">Precisión</div>
+                </div>
+
+                <ul class="info-list">
+                    <li>
+                        <span>Kernel</span>
+                        <span>Lineal</span>
+                    </li>
+                    <li>
+                        <span>Parámetro C</span>
+                        <span>50</span>
+                    </li>
+                    <li>
+                        <span>Características</span>
+                        <span>2</span>
+                    </li>
+                    <li>
+                        <span>Clases</span>
+                        <span>Benigno / Phishing</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
